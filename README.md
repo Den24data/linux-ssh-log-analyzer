@@ -2,17 +2,17 @@
 
 ## Project Overview
 
-This project explores basic Linux system administration, SSH security, and security log analysis using Python.
+This project explores Linux, SSH security, and security log analysis using Python.
 
 The goal is to develop a simple tool that analyzes SSH authentication logs and identifies potentially suspicious login activity, such as repeated failed login attempts.
 
-The project is developed as a hands-on learning exercise using a personal Linux VPS.
+The project is developed as a hands-on cybersecurity learning exercise using Ubuntu on Windows Subsystem for Linux (WSL2). It uses synthetic SSH authentication logs.
 
 ## Objectives
 
-- Learn basic Linux administration and terminal commands.
+- Practice Linux administration and terminal commands.
 - Understand SSH authentication and system logging.
-- Collect and examine SSH authentication events.
+- Examine SSH authentication events.
 - Develop a Python script to parse and analyze log data.
 - Identify repeated failed login attempts using simple detection rules.
 - Document findings, limitations, and lessons learned.
@@ -21,32 +21,79 @@ The project is developed as a hands-on learning exercise using a personal Linux 
 
 | Technology | Purpose |
 |---|---|
-| Linux (Ubuntu, planned) | Server environment |
-| SSH | Secure remote administration |
-| Python | Log parsing and analysis |
-| Bash | Linux commands and basic scripting |
+| Linux (Ubuntu / WSL2) | Development environment |
+| SSH | Understanding secure remote access and authentication |
+| Python 3 | Log parsing and analysis |
+| Bash | Linux terminal commands |
 | Git & GitHub | Version control and documentation |
 
-## Planned Workflow
+## Implementation
 
-1. Set up and secure a Linux VPS.
-2. Explore SSH authentication logs.
-3. Create synthetic sample log data.
-4. Develop a Python log parser.
-5. Implement a rule for detecting repeated failed login attempts.
-6. Test and document the results.
+The current Python script:
+
+1. Reads a synthetic SSH authentication log.
+2. Identifies failed password authentication attempts.
+3. Extracts the source IP address from each matching log entry.
+4. Counts failed attempts per IP address.
+5. Displays a warning when an IP address reaches three or more failed attempts.
+
+## Project Structure
+
+```text
+linux-ssh-log-analyzer/
+├── data/
+│   └── sample_auth.log
+├── src/
+│   └── analyze_ssh.py
+├── .gitignore
+└── README.md
+```
+
+## How to Run
+
+From the project root directory, execute:
+
+```bash
+python3 src/analyze_ssh.py
+```
+
+No external Python packages are required.
+
+## Example Results
+
+```text
+Failed SSH logins by IP:
+------------------------
+192.0.2.10: 3 failed attempts
+192.0.2.30: 2 failed attempts
+
+Potential suspicious activity:
+------------------------------
+WARNING: 192.0.2.10 has 3 failed login attempts
+```
+
+The script also prints the Python `Counter` object before the formatted results.
 
 ## Project Status
 
-**Status: Planning / Not yet implemented**
+**Status: Initial implementation completed**
 
-Development will be carried out incrementally using feature branches and pull requests.
+The first version of the SSH log analyzer has been implemented and tested using synthetic authentication events.
+
+Development is organized using Git feature branches.
 
 ## Security and Privacy
 
-This project uses a personally controlled VPS and synthetic or sanitized sample data.
+- All authentication logs included in this repository are synthetic.
+- Sample IP addresses are reserved for documentation purposes.
+- No real server authentication logs, private SSH keys, credentials, or sensitive configuration files are published.
 
-Private SSH keys, credentials, sensitive configuration files, and raw server logs will not be published in this repository.
+## Limitations
+
+- Failed attempts are counted across the entire log file without considering a time window.
+- The parser assumes a specific SSH log format.
+- The detection threshold is currently set to three failed attempts.
+- A warning indicates potentially suspicious activity, not confirmed malicious behavior.
 
 ## Future Improvements
 
@@ -56,4 +103,5 @@ Potential extensions include:
 - Additional authentication event types.
 - Automated log analysis.
 - Unit tests and improved error handling.
-- Structured output for further analysis.
+- Structured JSON output.
+- Optional analysis of appropriately sanitized logs from a Linux server.
