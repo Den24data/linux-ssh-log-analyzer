@@ -1,0 +1,6 @@
+Oct 25 09:00:01 demo-server sshd[1201]: Failed password for invalid user admin from 192.0.2.10 port 52101 ssh2
+Oct 25 09:00:12 demo-server sshd[1202]: Failed password for invalid user admin from 192.0.2.10 port 52102 ssh2
+Oct 25 09:00:24 demo-server sshd[1203]: Failed password for invalid user admin from 192.0.2.10 port 52103 ssh2
+Oct 25 09:01:05 demo-server sshd[1204]: Accepted publickey for testuser from 192.0.2.20 port 52104 ssh2
+Oct 25 09:02:10 demo-server sshd[1205]: Failed password for invalid user root from 192.0.2.30 port 52105 ssh2
+Oct 25 09:02:45 demo-server sshd[1206]: Failed password for invalid user guest from 192.0.2.30 port 52106 ssh2
